@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
+import { userAgent } from "next/server";
 import FavoriteModel from '../../../../models/FavoriteModel';
 import connectDB from '../../../../utils/connectDB';
 
@@ -12,27 +13,16 @@ const handler = nc<NextApiRequest, NextApiResponse>({
     },
     onNoMatch: (req, res) => {
         res.status(404).end("Page is not found");
-
     },
 })
-    .get(async (req, res) => {
+    .put(async (req, res) => {
         try {
-            const favorites = await FavoriteModel.find({})
-            res.send(favorites);
+            const favorite = await FavoriteModel.findOne({ _id: req.query.id });
+            favorite.status = req.body.statusValue;
+            await favorite.save();
+            res.send('Item Updated');
         } catch (error) {
             console.log(error);
-
-        }
-    })
-    .post(async (req, res) => {
-        const { name, status } = req.body;
-        const newFavorite = new FavoriteModel({ name, status })
-        try {
-            await newFavorite.save();
-            res.send('New favorite Added');
-        } catch (error) {
-            console.log(error);
-
         }
     });
 

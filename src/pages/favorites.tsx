@@ -6,6 +6,7 @@ import CommonStyles from "../styles/Common.module.scss";
 
 function favorites() {
   const [itemData, setitemData] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch("/api/favorites");
@@ -22,12 +23,10 @@ function favorites() {
             {itemData.map((itemDataVal) =>
               itemDataVal.status === true ? (
                 <div
-                  className={`col-lg-4 post_card ${
-                    itemDataVal.status === true ? styles.favorite : ""
-                  }`}
-                  key={itemDataVal.id}
+                  className={`col-lg-4 ${styles.post_card}`}
+                  key={itemDataVal._id}
                 >
-                  <PostCard buttonID={itemDataVal.id} />
+                  <PostCard name={itemDataVal.name} buttonID={itemDataVal._id} itemStatus={itemDataVal.status} />
                 </div>
               ) : (
                 ""

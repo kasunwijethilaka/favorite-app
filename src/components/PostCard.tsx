@@ -18,8 +18,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function PostCard(props: any) {
-  const { buttonID } = props;
-  const [status, setStatus] = useState(false);
+  const { buttonID, itemStatus, name } = props;
+  const [status, setStatus] = useState(itemStatus);
   const [id, setID] = useState("");
   const onChange = (favoriteId: any) => {
     const statusValue = !status;
@@ -28,10 +28,10 @@ function PostCard(props: any) {
     favorite(statusValue, favoriteId);
   };
 
-  const favorite = async (statusValue: any, id: any) => {
-    const response = await fetch("/api/favorites", {
-      method: "POST",
-      body: JSON.stringify({ statusValue, id }),
+  const favorite = async (statusValue: any, _id: any) => {
+    const response = await fetch(`/api/favorites/${_id}`, {
+      method: "put",
+      body: JSON.stringify({ statusValue }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -51,7 +51,7 @@ function PostCard(props: any) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="What is Lorem Ipsum"
+        title={name}
         subheader="February 1, 2023"
       />
       <Image height={200} src={Placeholder} alt="" />
@@ -63,12 +63,13 @@ function PostCard(props: any) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon
-            className={status ? styles.post_card__favorite : ""}
+        <IconButton aria-label="add to favorites" 
             onClick={() => {
               onChange(buttonID);
-            }}
+            }}>
+          <FavoriteIcon
+            className={status ? styles.post_card__favorite : ""}
+            
           />
         </IconButton>
         <IconButton aria-label="share">

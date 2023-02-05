@@ -1,19 +1,19 @@
 .post_card {
   margin-bottom: 30px;
-  .post_card__favorite {
-    &[data-testid="FavoriteIcon"] {
-      path {
-        fill: red;
-      }
-    }
-  }
 }
-
-.favorite {
-  margin-bottom: 30px;
-  [data-testid="FavoriteIcon"] {
+.post_card__favorite {
+  &[data-testid="FavoriteIcon"] {
     path {
       fill: red;
     }
   }
 }
+
+// .favorite {
+//   margin-bottom: 30px;
+//   [data-testid="FavoriteIcon"] {
+//     path {
+//       fill: red;
+//     }
+//   }
+// }

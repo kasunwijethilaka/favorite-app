@@ -1,9 +1,6 @@
-import Head from "next/head";
-import { Inter } from "@next/font/google";
-import { useEffect, useState } from "react";
-import Button from "../components/Button";
-import PostCard from "../components/PostCard";
 
+import { useEffect, useState } from "react";
+import PostCard from "../components/PostCard";
 import styles from "../styles/components/PostCard.module.scss";
 import CommonStyles from "../styles/Common.module.scss";
 
@@ -18,7 +15,6 @@ export default function Home() {
     };
     fetchItems();
   }, []);
-
   return (
     <>
       <section className={CommonStyles.item_wrapper}>
@@ -26,12 +22,10 @@ export default function Home() {
           <div className="row">
             {itemData.map((itemDataVal) => (
               <div
-                className={`col-lg-4 ${styles.post_card} ${
-                  itemDataVal.status === true ? styles.favorite : ""
-                }`}
-                key={itemDataVal.id}
+                className={`col-lg-4 ${styles.post_card}`}
+                key={itemDataVal._id}
               >
-                <PostCard buttonID={itemDataVal.id} />
+                <PostCard name={itemDataVal.name} buttonID={itemDataVal._id} itemStatus={itemDataVal.status} />
               </div>
             ))}
           </div>
