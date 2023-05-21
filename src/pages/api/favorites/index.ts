@@ -25,8 +25,8 @@ const handler = nc<NextApiRequest, NextApiResponse>({
         }
     })
     .post(async (req, res) => {
-        const { name, status } = req.body;
-        const newFavorite = new FavoriteModel({ name, status })
+        const { name, status, currentDate } = req.body;
+        const newFavorite = new FavoriteModel({ name, status, currentDate })
         try {
             await newFavorite.save();
             res.send('New favorite Added');
